@@ -1,0 +1,70 @@
+package Demo;
+
+public class LinkedList { private Node head; private Node tail; private int size;  public LinkedList() { tail = null; head = null; size = 0; }
+
+public void add(Integer data) {
+    Node newNode = new Node();
+    newNode.setData(data);
+    if (tail == null) {
+       tail = newNode;
+       head = newNode;
+       size++;
+    }
+    else {
+        tail.setNext(newNode);
+        tail = newNode;
+        size++;
+    }
+}
+
+public Integer get(int index) {
+    Node findNode = head;
+    if (findNode == null || index > (size - 1) || index < 0) {
+        return null;
+    }
+    while (findNode != null) {
+        for (int i = 0; i < index; i++) {
+            findNode = findNode.getNext();
+        }
+        return findNode.getData();
+    }
+    return findNode.getData();
+}
+
+public boolean delete(int index) {
+    Node curNode = head;
+    Node prevNode = head;
+    while (curNode != null) {
+        if (curNode == null || index > (size - 1) || index < 0) {
+            return false;}
+        if (head == tail) {
+            tail = null;
+            head = null;
+            size--;
+            return true;
+        }
+        if (index == 0) {
+            head = head.getNext();
+            size--;
+            return true;}
+
+        else    {
+            while (curNode != null) {
+                curNode = curNode.getNext();
+                for (int i = 0; i < (index-1); i++) {
+                    prevNode = curNode;
+                    curNode = curNode.getNext();
+                }
+                prevNode.setNext(curNode.getNext());
+                size--;
+                return true;
+            }
+        }
+    }
+    return true;
+}
+
+public int size() {
+    return size;
+}
+}
